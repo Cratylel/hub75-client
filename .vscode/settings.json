@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "chrono": "cpp",
+        "cstdlib": "cpp",
+        "string": "cpp",
+        "vector": "cpp",
+        "iostream": "cpp"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/wojtek/Projects/libmatrix",
+            "binaryPath": "/home/wojtek/Projects/libmatrix/main_x86_64",
+            "binaryArgs": []
+        }
+    ]
+}

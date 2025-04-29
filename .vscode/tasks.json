@@ -1,0 +1,28 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "make",
+        "type": "shell",
+        "command": "make clean && make TEST_ENV=1 LOG_LEVEL_DEBUG=1 TEST_SERVER=1",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": ["$gcc"],
+        "detail": "Runs make clean and then make"
+      },
+      {
+        "label": "make_arm",
+        "type": "shell",
+        "command": "make clean && make CXX=/home/wojtek/nvme/PROTOBOARD/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/bin/arm-rockchip830-linux-uclibcgnueabihf-g++ TARGET=main_arm",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": ["$gcc"],
+        "detail": "Runs make clean and then make"
+      }
+    ]
+  }
+  
