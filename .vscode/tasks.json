@@ -2,15 +2,20 @@
     "version": "2.0.0",
     "tasks": [
       {
-        "label": "make",
+        "label": "make_cpp_examples",
         "type": "shell",
-        "command": "make clean && make TEST_ENV=1 LOG_LEVEL_DEBUG=1 TEST_SERVER=1",
+        "command": "cd ./examples/cpp && make",
         "group": {
           "kind": "build",
           "isDefault": true
         },
         "problemMatcher": ["$gcc"],
         "detail": "Runs make clean and then make"
+      },
+      {
+        "label": "clean",
+        "type": "shell",
+        "command": "make clean && cd ./examples/cpp && make clean"
       },
       {
         "label": "make_arm",

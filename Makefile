@@ -1,6 +1,6 @@
 # Compiler and flags
 CXX ?= g++
-CXXFLAGS := -Wall -Wextra -O3 -std=c++17 -g -rdynamic
+CXXFLAGS := -Wall -Wextra -O3 -std=c++17 -g -rdynamic -shared -fPIC
 CXXFLAGS += $(if $(TEST_ENV),-DTEST_ENV)
 CXXFLAGS += $(if $(LOG_LEVEL_DEBUG),-DLOG_LEVEL_DEBUG)
 CXXFLAGS += $(if $(TEST_SERVER),-DTEST_SERVER)
@@ -10,14 +10,17 @@ SRCDIR := lib
 OBJDIR := build
 
 # Source and object files
-SOURCES := $(wildcard $(SRCDIR)/*.cpp)
+#SOURCES := $(wildcard $(SRCDIR)/*.cpp)
+SOURCES := lib/matrix.cpp
+SOURCES += lib/main.cpp #temp testing main file
 OBJECTS := $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SOURCES))
 
 # Output binary
 TARGET ?= main_x86_64
 
 # Default rule
-all: $(TARGET)
+#all: $(TARGET)
+all: bindings-python
 
 # Linking the final binary
 $(TARGET): $(OBJECTS)
@@ -33,13 +36,14 @@ $(OBJDIR):
 
 # Clean rule
 clean:
-	rm -rf $(OBJDIR) $(TARGET) my_module$(shell python3-config --extension-suffix)
+	rm -rf $(OBJDIR) $(TARGET) matrix$(shell python3-config --extension-suffix)
 
 # Python bindings target
+PYTHON_CONFIG = python3-config
+PYBIND11_INCLUDES = $(shell python3 -m pybind11 --includes)
+EXT_SUFFIX = $(shell $(PYTHON_CONFIG) --extension-suffix)
+
 bindings-python:
-	$(CXX) -O3 -Wall -shared -std=c++17 -fPIC \
-		`python3 -m pybind11 --includes` \
-		bindings.cpp test.cpp \
-		-o matrix`python3-config --extension-suffix`
+	$(CXX) $(CXXFLAGS) $(PYBIND11_INCLUDES) lib/bindings.cpp lib/matrix.cpp -o matrix$(EXT_SUFFIX)
 
 .PHONY: all clean bindings-python
