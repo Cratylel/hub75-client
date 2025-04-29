@@ -57,7 +57,7 @@ void map_buffer(char* path, uint32_t width, uint32_t height) {
     mx.set_active_buffer(mx.map_buffer(path, width, height));
 }
 
-PYBIND11_MODULE(my_module, m) {
+PYBIND11_MODULE(matrix, m) {
     m.def("flush_buffer", &flush_buffer, "Flush buffer");
     m.def("map_buffer", &map_buffer, "Map shared memory buffer");
 }

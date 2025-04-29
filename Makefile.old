@@ -33,13 +33,6 @@ $(OBJDIR):
 
 # Clean rule
 clean:
-	rm -rf $(OBJDIR) $(TARGET) my_module$(shell python3-config --extension-suffix)
+	rm -rf $(OBJDIR) $(TARGET)
 
-# Python bindings target
-bindings-python:
-	$(CXX) -O3 -Wall -shared -std=c++17 -fPIC \
-		`python3 -m pybind11 --includes` \
-		bindings.cpp test.cpp \
-		-o matrix`python3-config --extension-suffix`
-
-.PHONY: all clean bindings-python
+.PHONY: all clean
